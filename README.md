@@ -1,3 +1,5 @@
+[![Genera PDF](https://github.com/WildOutCon/Regolamenti/actions/workflows/genera-pdf.yml/badge.svg)](https://github.com/WildOutCon/Regolamenti/actions/workflows/genera-pdf.yml)
+
 # Regolamenti e documenti istituzionali — WildOut APS
 
 Raccolta pubblica dei documenti ufficiali di **WildOut APS**, associazione di promozione
