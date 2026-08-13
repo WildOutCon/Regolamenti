@@ -79,11 +79,25 @@ for riga in "${DOCUMENTI[@]}"; do
   [[ "$cortesia" == "si" ]] && opzioni+=(--include-before-body "$BUILD/avviso-cortesia.tex")
 
   echo "→ $sorgente"
-  if pandoc "${opzioni[@]}" "$ROOT/$sorgente" -o "$OUT/$destinazione"; then
+  registro="$TMP/pandoc-${destinazione%.pdf}.log"
+
+  if pandoc --verbose "${opzioni[@]}" "$ROOT/$sorgente" -o "$OUT/$destinazione" \
+       > "$registro" 2>&1; then
     generati=$((generati + 1))
   else
-    echo "::error::Generazione fallita per $sorgente"
     falliti=$((falliti + 1))
+    echo "::error::Generazione fallita per $sorgente"
+
+    echo "===== output completo di pandoc/xelatex per $sorgente ====="
+    cat "$registro"
+    echo "==========================================================="
+
+    # Le righe che contano finiscono anche fra le annotazioni del run, così
+    # sono leggibili senza dover aprire il log completo.
+    grep -iE '^!|^l\.[0-9]|not found|undefined control sequence|emergency stop|fatal|error' \
+      "$registro" | head -n 12 | while IFS= read -r r; do
+        [ -n "$r" ] && echo "::error::[$(basename "$sorgente")] $r"
+      done
   fi
 done
 

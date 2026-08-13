@@ -58,12 +58,23 @@ jobs:
           xelatex --version | head -1
           echo
           echo "### pacchetti LaTeX"
-          for p in fancyhdr lastpage xcolor titlesec booktabs longtable array geometry hyperref; do
-            printf '%-12s %s\n' "$p" "$(kpsewhich "$p.sty" 2>/dev/null || echo '*** MANCANTE ***')"
+          for p in fancyhdr lastpage xcolor titlesec booktabs longtable array \
+                   geometry hyperref polyglossia fontspec unicode-math iftex; do
+            if percorso=$(kpsewhich "$p.sty" 2>/dev/null) && [ -n "$percorso" ]; then
+              printf '%-14s %s\n' "$p" "$percorso"
+            else
+              printf '%-14s *** MANCANTE ***\n' "$p"
+              echo "::warning::Pacchetto LaTeX non installato: $p.sty"
+            fi
           done
           echo
           echo "### font TeX Gyre visti da fontconfig"
-          fc-list 2>/dev/null | grep -i "tex gyre" | head -5 || echo "nessuno"
+          if fc-list 2>/dev/null | grep -i "tex gyre" | head -5; then
+            :
+          else
+            echo "nessuno"
+            echo "::warning::fontconfig non vede alcun font TeX Gyre: si userà Latin Modern."
+          fi
 
       - name: Genera i PDF
         run: bash .github/pdf-build/genera-pdf.sh
