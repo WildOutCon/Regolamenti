@@ -13,15 +13,16 @@ trattiamo i suoi dati.** Tutto ciò che segue è consultabile liberamente, senza
 
 ## I documenti
 
-Ogni documento è disponibile in Markdown (comodo da leggere e citare) e in PDF (la versione impaginata).
+Per ogni documento trovi il **PDF ufficiale** (la versione sottoscritta, in `originali/`) e il **testo in
+Markdown**, comodo da leggere sul telefono, citare e confrontare nel tempo.
 
-| Documento | Che cos'è | A chi serve |
-| --- | --- | --- |
-| [Statuto](Statuto.md) · [PDF](Statuto_WildOut.pdf) | Le regole di funzionamento dell'Associazione: scopi, ammissione e diritti degli associati, organi, assemblea, patrimonio, scioglimento. 18 articoli | Associati e aspiranti tali |
-| [Atto costitutivo](Atto_costitutivo.md) · [PDF](Atto_costitutivo.pdf) | L'atto con cui l'Associazione è stata costituita il 6 settembre 2024 | Consultazione storica e istituzionale |
-| [Codice di condotta](Codice_di_condotta.md) · [PDF](Codice_di_condotta.pdf) | Il regolamento della convention: consenso e spazio personale, anti-harassment, comportamento in hotel, badge e accessi, fursuiting, dress code, fotografia e privacy, alcol, armi e props, sanzioni | **Chiunque partecipi a WildOut** |
-| [Informativa sul trattamento dei dati](Informativa_sul_trattamento_dei_dati.md) · [PDF](Informativa_sul_trattamento_dei_dati.pdf) | Informativa privacy ai sensi dell'art. 13 del Regolamento UE 2016/679 (GDPR) | Chiunque ci fornisca dati personali |
-| [Liberatoria immagini, audio e video](Liberatoria_per_l_utilizzo_di_immagini_audio_e_video.md) · [PDF](Liberatoria_per_l_utilizzo_di_immagini_audio_e_video.pdf) | Disciplina l'uso di foto, riprese e registrazioni realizzate durante le attività associative (art. 10 c.c., artt. 96-97 L. 633/1941) | Chi compare in materiali fotografici o video |
+| Documento | Versione | Che cos'è | A chi serve |
+| --- | --- | --- | --- |
+| **Statuto** — [PDF](originali/Statuto.pdf) · [testo](Statuto.md) | 15/10/2024 | Le regole di funzionamento dell'Associazione: scopi, ammissione e diritti degli associati, organi, assemblea, patrimonio, scioglimento. 18 articoli | Associati e aspiranti tali |
+| **Atto costitutivo** — [PDF](originali/Atto_costitutivo.pdf) · [testo](Atto_costitutivo.md) | 08/11/2024 | L'atto con cui l'Associazione è stata costituita il 6 settembre 2024 | Consultazione storica e istituzionale |
+| **Codice di condotta** — [PDF](originali/Codice_di_condotta.pdf) · [testo](Codice_di_condotta.md) | 18/02/2026 | Il regolamento della convention: consenso e spazio personale, anti-harassment, comportamento in hotel, badge e accessi, fursuiting, dress code, fotografia e privacy, alcol, armi e props, sanzioni | **Chiunque partecipi a WildOut** |
+| **Informativa sul trattamento dei dati** — [PDF](originali/Informativa_sul_trattamento_dei_dati.pdf) · [testo](Informativa_sul_trattamento_dei_dati.md) | 18/02/2026 | Informativa privacy ai sensi dell'art. 13 del Regolamento UE 2016/679 (GDPR) | Chiunque ci fornisca dati personali |
+| **Liberatoria immagini, audio e video** — [PDF](originali/Liberatoria_per_l_utilizzo_di_immagini_audio_e_video.pdf) · [testo](Liberatoria_per_l_utilizzo_di_immagini_audio_e_video.md) | 18/02/2026 | Disciplina l'uso di foto, riprese e registrazioni realizzate durante le attività associative (art. 10 c.c., artt. 96-97 L. 633/1941) | Chi compare in materiali fotografici o video |
 
 ### Se partecipi alla convention, leggi almeno questi
 
@@ -34,12 +35,24 @@ Ogni documento è disponibile in Markdown (comodo da leggere e citare) e in PDF 
 
 ---
 
-## Valore dei testi
+## Come è organizzato il repository
 
-I file Markdown di questo repository sono la **trascrizione** dei PDF, che restano la versione di
-riferimento. In caso di discordanza fanno fede le versioni sottoscritte dagli organi associativi e, per
-Statuto e Atto costitutivo, quelle depositate presso il **RUNTS** (Registro unico nazionale del Terzo
-settore).
+Nel repository convivono tre cose che è bene non confondere:
+
+| Dove | Che cos'è | Fa fede? |
+| --- | --- | --- |
+| `originali/` | I PDF **ufficiali**, sottoscritti dagli organi associativi | **Sì** |
+| File `.md` in radice | Il testo dei documenti, trascritto e mantenuto in Markdown | No, ma è il testo su cui si lavora |
+| `pdf/` | PDF **rigenerati automaticamente** dal Markdown a ogni modifica | No: copie di cortesia |
+
+In caso di discordanza fanno fede i PDF in `originali/` e, per **Statuto e Atto costitutivo**, le
+versioni depositate presso il **RUNTS** (Registro unico nazionale del Terzo settore), dove
+l'Associazione è iscritta dal **28 dicembre 2024**. I PDF rigenerati di questi due atti riportano in
+testa un avviso esplicito, così che una copia di cortesia non venga mai scambiata per l'atto depositato.
+
+Se un file in `pdf/` diverge dal corrispondente in `originali/`, significa che il testo è stato
+aggiornato dopo l'ultima sottoscrizione: la modifica va portata agli organi competenti prima di
+considerarla efficace.
 
 Statuto e Atto costitutivo sono modificabili esclusivamente secondo le procedure previste
 dallo Statuto stesso: le proposte di modifica **non passano da qui**, ma dagli organi
