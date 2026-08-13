@@ -40,6 +40,10 @@ jobs:
       - name: Installa pandoc e XeLaTeX
         run: |
           sudo apt-get update -qq
+          # Attenzione a --no-install-recommends: scarta i pacchetti che TeX Live
+          # si limita a "raccomandare". Fra questi c'è lmodern, che il template
+          # di pandoc carica sempre. Va quindi elencato esplicitamente, come ogni
+          # altra dipendenza che qui diamo per scontata.
           sudo apt-get install -y --no-install-recommends \
             pandoc \
             texlive-xetex \
@@ -47,6 +51,7 @@ jobs:
             texlive-latex-extra \
             texlive-fonts-recommended \
             texlive-lang-italian \
+            lmodern \
             fonts-texgyre
 
       # Se una compilazione fallisce, qui si vede subito se manca un pacchetto
@@ -58,8 +63,8 @@ jobs:
           xelatex --version | head -1
           echo
           echo "### pacchetti LaTeX"
-          for p in fancyhdr lastpage xcolor titlesec booktabs longtable array \
-                   geometry hyperref polyglossia fontspec unicode-math iftex; do
+          for p in lmodern fancyhdr lastpage xcolor titlesec booktabs longtable \
+                   array geometry hyperref polyglossia fontspec unicode-math iftex; do
             if percorso=$(kpsewhich "$p.sty" 2>/dev/null) && [ -n "$percorso" ]; then
               printf '%-14s %s\n' "$p" "$percorso"
             else
