@@ -1,0 +1,9 @@
+# I file eseguiti dal runner Linux della GitHub Action devono avere terminatori
+# di riga LF: con CRLF bash fallisce con "\r: command not found".
+*.sh   text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.tex  text eol=lf
+
+# I PDF sono binari: nessuna conversione, nessun diff testuale.
+*.pdf  binary
