@@ -1,0 +1,39 @@
+% Preambolo LaTeX per i PDF generati dai documenti Markdown di WildOut APS.
+% Il segnaposto @@DOCNAME@@ viene sostituito da genera-pdf.sh con il nome del
+% documento in lavorazione, che finisce al centro del piè di pagina.
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{xcolor}
+
+\definecolor{grigiotesta}{HTML}{555555}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
+\setlength{\footskip}{42pt}
+
+\fancyhead[R]{\small\color{grigiotesta}WildOut APS}
+
+% Piè di pagina su due righe, come nei PDF originali dell'Associazione.
+\fancyfoot[C]{%
+  \parbox{\textwidth}{%
+    \scriptsize\color{grigiotesta}%
+    Email info@wildout.eu \quad PEC wildout@pec.it%
+    \hfill @@DOCNAME@@ \hfill%
+    \thepage/\pageref{LastPage}\\[2pt]%
+    \centering Codice Fiscale 92075020468 --- Sede legale Via Nazionale n. 1696 -- 55100 Lucca (LU)%
+  }%
+}
+
+% La prima pagina usa lo stesso stile delle altre.
+\fancypagestyle{plain}{%
+  \pagestyle{fancy}%
+}
+
+% Spaziatura dei titoli un po' più arieggiata rispetto al default.
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{2.2ex plus 1ex minus .2ex}{1.2ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{1.8ex plus 1ex minus .2ex}{0.9ex plus .2ex}
