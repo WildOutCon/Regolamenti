@@ -44,9 +44,26 @@ jobs:
             pandoc \
             texlive-xetex \
             texlive-latex-recommended \
+            texlive-latex-extra \
             texlive-fonts-recommended \
             texlive-lang-italian \
             fonts-texgyre
+
+      # Se una compilazione fallisce, qui si vede subito se manca un pacchetto
+      # o un font, senza dover leggere centinaia di righe di log LaTeX.
+      - name: Diagnostica ambiente TeX
+        run: |
+          echo "### versioni"
+          pandoc --version | head -1
+          xelatex --version | head -1
+          echo
+          echo "### pacchetti LaTeX"
+          for p in fancyhdr lastpage xcolor titlesec booktabs longtable array geometry hyperref; do
+            printf '%-12s %s\n' "$p" "$(kpsewhich "$p.sty" 2>/dev/null || echo '*** MANCANTE ***')"
+          done
+          echo
+          echo "### font TeX Gyre visti da fontconfig"
+          fc-list 2>/dev/null | grep -i "tex gyre" | head -5 || echo "nessuno"
 
       - name: Genera i PDF
         run: bash .github/pdf-build/genera-pdf.sh

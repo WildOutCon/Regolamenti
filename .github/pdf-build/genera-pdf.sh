@@ -31,6 +31,21 @@ DOCUMENTI=(
 
 mkdir -p "$OUT"
 
+# I font TeX Gyre migliorano la resa ma non sono indispensabili: se fontconfig
+# non li trova si usa il Latin Modern di XeLaTeX, sempre presente. Meglio un PDF
+# con il font di ripiego che nessun PDF.
+FONT_OPZIONI=()
+if command -v fc-list >/dev/null 2>&1 && fc-list 2>/dev/null | grep -qi "TeX Gyre Termes"; then
+  FONT_OPZIONI=(
+    --variable "mainfont:TeX Gyre Termes"
+    --variable "sansfont:TeX Gyre Heros"
+    --variable "monofont:TeX Gyre Cursor"
+  )
+  echo "Font: TeX Gyre"
+else
+  echo "Font: TeX Gyre non disponibile, uso il default Latin Modern."
+fi
+
 falliti=0
 generati=0
 
@@ -53,9 +68,7 @@ for riga in "${DOCUMENTI[@]}"; do
     --include-in-header "$preambolo"
     --variable "geometry:margin=2.4cm"
     --variable "fontsize:11pt"
-    --variable "mainfont:TeX Gyre Termes"
-    --variable "sansfont:TeX Gyre Heros"
-    --variable "monofont:TeX Gyre Cursor"
+    "${FONT_OPZIONI[@]}"
     --variable "linkcolor:black"
     --variable "urlcolor:black"
     --variable "lang:it"

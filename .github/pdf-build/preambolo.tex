@@ -1,39 +1,52 @@
 % Preambolo LaTeX per i PDF generati dai documenti Markdown di WildOut APS.
 % Il segnaposto @@DOCNAME@@ viene sostituito da genera-pdf.sh con il nome del
 % documento in lavorazione, che finisce al centro del piè di pagina.
+%
+% Regola: qui dentro possono stare senza guardie solo i pacchetti presenti in
+% texlive-latex-recommended. Tutto il resto va avvolto in \IfFileExists, così
+% un pacchetto assente degrada la resa ma non fa fallire la compilazione.
 
 \usepackage{fancyhdr}
-\usepackage{lastpage}
 \usepackage{xcolor}
 
 \definecolor{grigiotesta}{HTML}{555555}
 
-\pagestyle{fancy}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
-\setlength{\headheight}{14pt}
-\setlength{\footskip}{42pt}
+% lastpage serve solo per il "pagina/totale": se manca, resta il solo numero.
+\IfFileExists{lastpage.sty}{%
+  \usepackage{lastpage}%
+  \newcommand{\wonumeropagina}{\thepage/\pageref{LastPage}}%
+}{%
+  \newcommand{\wonumeropagina}{\thepage}%
+}
 
-\fancyhead[R]{\small\color{grigiotesta}WildOut APS}
-
-% Piè di pagina su due righe, come nei PDF originali dell'Associazione.
-\fancyfoot[C]{%
-  \parbox{\textwidth}{%
-    \scriptsize\color{grigiotesta}%
-    Email info@wildout.eu \quad PEC wildout@pec.it%
-    \hfill @@DOCNAME@@ \hfill%
-    \thepage/\pageref{LastPage}\\[2pt]%
-    \centering Codice Fiscale 92075020468 --- Sede legale Via Nazionale n. 1696 -- 55100 Lucca (LU)%
+% Intestazione e piè di pagina, definiti una volta e riusati anche per lo stile
+% "plain" (la prima pagina e le pagine di apertura dell'indice).
+\newcommand{\wointestazione}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0.4pt}%
+  \renewcommand{\footrulewidth}{0.4pt}%
+  \fancyhead[R]{\small\color{grigiotesta}WildOut APS}%
+  \fancyfoot[C]{%
+    \parbox{\textwidth}{%
+      \scriptsize\color{grigiotesta}%
+      Email info@wildout.eu \quad PEC wildout@pec.it%
+      \hfill @@DOCNAME@@ \hfill%
+      \wonumeropagina\\[2pt]%
+      \centering Codice Fiscale 92075020468 --- Sede legale Via Nazionale n. 1696 -- 55100 Lucca (LU)%
+    }%
   }%
 }
 
-% La prima pagina usa lo stesso stile delle altre.
-\fancypagestyle{plain}{%
-  \pagestyle{fancy}%
-}
+\setlength{\headheight}{14pt}
+\setlength{\footskip}{42pt}
 
-% Spaziatura dei titoli un po' più arieggiata rispetto al default.
-\usepackage{titlesec}
-\titlespacing*{\section}{0pt}{2.2ex plus 1ex minus .2ex}{1.2ex plus .2ex}
-\titlespacing*{\subsection}{0pt}{1.8ex plus 1ex minus .2ex}{0.9ex plus .2ex}
+\pagestyle{fancy}
+\wointestazione
+\fancypagestyle{plain}{\wointestazione}
+
+% Spaziatura dei titoli: gradevole ma non essenziale, quindi opzionale.
+\IfFileExists{titlesec.sty}{%
+  \usepackage{titlesec}%
+  \titlespacing*{\section}{0pt}{2.2ex plus 1ex minus .2ex}{1.2ex plus .2ex}%
+  \titlespacing*{\subsection}{0pt}{1.8ex plus 1ex minus .2ex}{0.9ex plus .2ex}%
+}{}
